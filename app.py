@@ -18,13 +18,13 @@ def ask_llm(user_text: str, expert_choice: str) -> str:
     LLMの回答文字列を返す。
     """
     system_prompts = {
-        "A": (
-            "あなたはA領域の専門家です。"
+        "健康アドバイザー": (
+            "あなたは優秀な健康アドバイザーです。"
             "ユーザーの質問に対して、要点を整理し、実務で使える形で回答してください。"
             "不明点がある場合は、前提を置いて回答し、最後に確認質問を1〜3個添えてください。"
         ),
-        "B": (
-            "あなたはB領域の専門家です。"
+        "栄養士": (
+            "あなたは優秀な栄養士です。"
             "ユーザーの質問に対して、初心者にも分かるように噛み砕いて説明してください。"
             "必要に応じて例えや箇条書きを使ってください。"
         ),
@@ -49,17 +49,17 @@ def ask_llm(user_text: str, expert_choice: str) -> str:
 # Streamlit UI
 # ----------------------------
 st.set_page_config(page_title="LangChain LLM Demo", page_icon="🤖")
-st.title("🤖 LangChain × LLM Webアプリ（入力1つ + 専門家切替）")
+st.title("🤖 健康 × 食事 Webアプリ")
 
 st.markdown(
     """
 ### このアプリでできること
-- **入力フォーム**に文章を入力して送信すると、LangChain経由でLLMに問い合わせます  
-- **ラジオボタン**で「専門家A / 専門家B」を選び、選択に応じて **システムメッセージ（役割）** を切り替えます  
+- **質問入力**すると専門家AIが回答をしてくれます。  
+- **ボタン**で「健康アドバイザー/栄養士」を選び、選択に応じて **専門家**を切り替えます。  
 - 返ってきた **回答を画面に表示**します
 
 ### 操作方法
-1. 「専門家タイプ」を **A または B** から選択  
+1. 「専門家タイプ」を **健康アドバイザーまたは栄養士** から選択  
 2. 下の入力欄に質問や相談内容を入力  
 3. 「送信」を押すと、回答が下に表示されます
 """
@@ -69,7 +69,7 @@ st.markdown(
 with st.form("query_form"):
     expert_choice = st.radio(
         "専門家タイプを選択",
-        options=["A", "B"],
+        options=["健康アドバイザー", "栄養士"],
         horizontal=True,
     )
     user_text = st.text_area("入力フォーム（ここに質問を入力）", height=140, placeholder="例：新規事業のアイデアを3つ出して…")
@@ -89,4 +89,4 @@ if submitted:
                 st.exception(e)
 
 st.divider()
-st.caption("※ 事前に環境変数 OPENAI_API_KEY を設定してから実行してください。")
+st.caption("© 2024 健康 × 食事 Webアプリ")
