@@ -29,7 +29,7 @@ def ask_llm(user_text: str, expert_choice: str) -> str:
             "必要に応じて例えや箇条書きを使ってください。"
         ),
     }
-    system_message = system_prompts.get(expert_choice, system_prompts["A"])
+    system_message = system_prompts.get(expert_choice, system_prompts["健康アドバイザー"])
 
     llm = ChatOpenAI(
         model="gpt-4.1-mini",   # 好みのモデルに変更OK
@@ -72,7 +72,7 @@ with st.form("query_form"):
         options=["健康アドバイザー", "栄養士"],
         horizontal=True,
     )
-    user_text = st.text_area("入力フォーム（ここに質問を入力）", height=140, placeholder="例：新規事業のアイデアを3つ出して…")
+    user_text = st.text_area("入力フォーム（ここに質問を入力）", height=140, placeholder="例：最近眠れないことが多いのですが、何かアドバイスはありますか？")
     submitted = st.form_submit_button("送信")
 
 if submitted:
